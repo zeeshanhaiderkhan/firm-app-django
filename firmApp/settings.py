@@ -1,5 +1,6 @@
 import os
 
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR,"templates")
 STATIC_DIR = os.path.join(BASE_DIR,"static")
@@ -21,6 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bootstrap4',
     'accounts',
 ]
 
@@ -65,6 +67,13 @@ DATABASES = {
     }
 }
 
+PASSWORD_HASHERS = [
+    #'django.contrib.auth.hashers.Argon2PasswordHasher',
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    'django.contrib.auth.hashers.BCryptPasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+]
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -72,6 +81,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS':{'min_length':9}
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -97,3 +107,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIR =[STATIC_DIR,]
+
+MEDIA_URL = '/media/'
+
+LOGIN_URL = '/accounts/user_login'
+
+LOGIN_REDIRECT_URL = '/accounts/profile'
+LOGOUT_REDIRECT_URL = '/accounts/login'
